@@ -1,10 +1,17 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function GestionProduits() {
+export default function GestionProduits({ navigation }) {
+  // const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Que voulez-vous faire ?</Text>
-      <Pressable style={styles.button}>Ajouter un produit</Pressable>
+
+      <Button
+        title="Ajouter un produit"
+        style={styles.button}
+        onPress={() => navigation.navigate("FormulaireAjoutProduit")}
+      ></Button>
       <Pressable style={styles.button}>Modifier un produit</Pressable>
       <Pressable style={styles.button}>Supprimer un produit</Pressable>
     </View>

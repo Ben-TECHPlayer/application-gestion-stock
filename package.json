@@ -1,5 +1,5 @@
 {
-  "name": "application-gestion-stock",
+  "name": "application-gestion-stock-two",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "dependencies": {
