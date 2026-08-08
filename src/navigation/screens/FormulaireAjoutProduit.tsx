@@ -1,24 +1,31 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
+import { useProduitStore } from "../../store/ProduitStore";
 
 export default function FormulaireAjoutProduit() {
 
   const navigation = useNavigation();
   const [nom, setNom] = useState("");
   const [categorie, setCategorie] = useState("");
+  const [reference, setReference] = useState("");
   const [seuil, setSeuil] = useState("");
   const [quantite, setQuantite] = useState("");
 
+  const ajouterProduit = useProduitStore((state) => state.ajouterProduit);
+
   const creerProduit = () => {
     const produit = {
-      nom: nom,
-      categorie: categorie,
+      nom,
+      categorie,
+      reference,
       seuil: Number(seuil),
       quantite: Number(quantite),
     };
 
-    console.log(produit);
+    ajouterProduit(produit);
+
+    navigation.navigate("HomeTabs");
   };
 
   return (
@@ -37,6 +44,8 @@ export default function FormulaireAjoutProduit() {
 
         <TextInput
           style={styles.inputForm}
+          value={reference}
+          onChangeText={setReference}
           placeholder="La référence du produit"
         />
 
@@ -60,8 +69,7 @@ export default function FormulaireAjoutProduit() {
           onChangeText={setSeuil}
           placeholder="Le seuil d'alerte du produit"
         />
-{/* onPress={() => navigation.navigate("HomeTabs")} */}
-        <Pressable style={styles.button} onPress={(creerProduit) => navigation.navigate("HomeTabs")} >
+        <Pressable style={styles.button} onPress={creerProduit} >
           <Text style={styles.textButton}>Créer le produit</Text>
         </Pressable>
         
