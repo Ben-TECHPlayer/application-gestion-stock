@@ -1,0 +1,107 @@
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+
+export default function FormulaireAjoutProduit() {
+
+  const navigation = useNavigation();
+  const [nom, setNom] = useState("");
+  const [categorie, setCategorie] = useState("");
+  const [seuil, setSeuil] = useState("");
+  const [quantite, setQuantite] = useState("");
+
+  const creerProduit = () => {
+    const produit = {
+      nom: nom,
+      categorie: categorie,
+      seuil: Number(seuil),
+      quantite: Number(quantite),
+    };
+
+    console.log(produit);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Formulaire de création de produits</Text>
+      <View style={styles.containerInputsForm}>
+        {/* 
+            (nom, référence, catégorie, quantité initiale, seuil d'alerte)
+        */}
+        <TextInput 
+          style={styles.inputForm} 
+          value={nom}
+          onChangeText={setNom}
+          placeholder="Le nom du produit" 
+        />
+
+        <TextInput
+          style={styles.inputForm}
+          placeholder="La référence du produit"
+        />
+
+        <TextInput
+          style={styles.inputForm}
+          value={categorie}
+          onChangeText={setCategorie}
+          placeholder="La catégorie du produit"
+        />
+
+        <TextInput
+          style={styles.inputForm}
+          value={quantite}
+          onChangeText={setQuantite}
+          placeholder="La quantité initiale du produit"
+        />
+
+        <TextInput
+          style={styles.inputForm}
+          value={seuil}
+          onChangeText={setSeuil}
+          placeholder="Le seuil d'alerte du produit"
+        />
+{/* onPress={() => navigation.navigate("HomeTabs")} */}
+        <Pressable style={styles.button} onPress={(creerProduit) => navigation.navigate("HomeTabs")} >
+          <Text style={styles.textButton}>Créer le produit</Text>
+        </Pressable>
+        
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  text: {
+    color: "red",
+    fontSize: 34,
+    fontFamily: "Samsung Sharp Sans",
+    textAlign: "center",
+  },
+  containerInputsForm: {
+    alignItems: "center",
+  },
+  button: {
+    backgroundColor: "lime",
+    padding: 10,
+    borderRadius: 8,
+    marginTop: 10,
+    width: "150%",
+  },
+  textButton: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 24,
+  },
+  inputForm: {
+    padding: 12,
+    backgroundColor: "white",
+    borderRadius: 8,
+    marginTop: 10,
+    width: "150%",
+  },
+});
