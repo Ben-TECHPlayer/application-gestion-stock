@@ -11,10 +11,12 @@ import {
 import { Image } from 'react-native';
 import home from '../assets/home.png';
 import stock from '../assets/stock.png';
+
 import Home from './screens/Home';
 import DetailsProduit from './screens/DetailsProduit';
 import GestionProduits from './screens/GestionProduits';
 import FormulaireAjoutProduit from './screens/FormulaireAjoutProduit';
+import ChoixModificationProduit from './screens/ChoixModificationProduit';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -72,6 +74,12 @@ const RootStack = createNativeStackNavigator({
       screen: DetailsProduit,
       options: {
         title: 'Détails du produit',
+      }
+    }),
+    ChoixModificationProduit: createNativeStackScreen({
+      screen: ChoixModificationProduit,
+      options: {
+        title: 'Modification du produit',
       }
     }),
   },

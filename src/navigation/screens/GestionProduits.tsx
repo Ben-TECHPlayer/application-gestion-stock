@@ -1,4 +1,4 @@
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function GestionProduits() {
@@ -15,7 +15,10 @@ export default function GestionProduits() {
       >
         <Text style={styles.textButton}>Ajouter un produit</Text>
       </Pressable>
-      <Pressable style={styles.button}>
+      <Pressable 
+        style={styles.button}
+        onPress={() => navigation.navigate("ChoixModificationProduit")}
+      >
         <Text style={styles.textButton}>Modifier un produit</Text>
       </Pressable>
       {/* <Pressable style={styles.button}>

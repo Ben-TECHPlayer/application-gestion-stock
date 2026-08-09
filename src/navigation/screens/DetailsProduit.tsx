@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
 import { useProduitStore } from "../../store/ProduitStore";
+import ModifierQuantiteProduit from "../../components/ModifierQuantiteProduit";
+import ModifierInfosProduit from "../../components/ModifierInfosProduit";
 
 export default function DetailsProduit() {
 
@@ -7,8 +9,8 @@ export default function DetailsProduit() {
     (state) => state.produitSelectionne
   );
 
-  const modifierQuantite = useProduitStore(
-  (state) => state.modifierQuantite
+  const modeDetails = useProduitStore(
+  (state) => state.modeDetails
 );
 
   if (!produit) {
@@ -20,51 +22,21 @@ export default function DetailsProduit() {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.text}>{produit.nom}</Text>
+  <ScrollView contentContainerStyle={styles.container}>
+    <Text style={styles.text}>{produit.nom}</Text>
 
-      <View style={styles.containerProduit}>
-        <Text>Référence : {produit.reference}</Text>
-        {/* <Text>Description : à mettre </Text> */}
-        <Text>Catégorie : {produit.categorie}</Text>
-        <Text>Quantité en stock : {produit.quantite}</Text>
-        <Text>Seuil : {produit.seuil}</Text>
+    <View style={styles.containerProduit}>
+      {modeDetails === "modification" && (
+        <ModifierInfosProduit />
+      )}
 
-        <Text>
-          {produit.quantite === 0
-            ? "🔴 Rupture"
-            : produit.quantite <= produit.seuil
-            ? "🟡 Faible"
-            : "🟢 Normal"}
-        </Text>
-        {/* <Text>Dernière mise à jour : à mettre à l'instant T</Text> */}
-        <View style={styles.viewButton}>
-            <Pressable
-              style={styles.button}
-              onPress={() =>
-                modifierQuantite(
-                  produit.reference,
-                  produit.quantite + 1
-                  )
-              }
-            >
-                <Text style={styles.textButton}>+</Text>
-            </Pressable>
-            <Pressable
-              style={styles.button}
-                onPress={() =>
-                  modifierQuantite(
-                  produit.reference,
-                  Math.max(0, produit.quantite - 1)
-                  )
-              }
-            >
-                <Text style={styles.textButton}>-</Text>
-            </Pressable>
-        </View>
-      </View>
-    </ScrollView>
-  );
+      {modeDetails === "consultation" && (
+        <ModifierQuantiteProduit />
+      )}
+    </View>
+  </ScrollView>
+);
+  
 }
 
 const styles = StyleSheet.create({

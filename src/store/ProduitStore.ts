@@ -15,7 +15,12 @@ type ProduitStore = {
   produitSelectionne: Produit | null;
   selectionnerProduit: (produit: Produit) => void;
 
+  modeDetails: "consultation" | "modification";
+  setModeDetails: (mode: "consultation" | "modification") => void;
+
   modifierQuantite: (reference: string, nouvelleQuantite: number) => void;
+
+  modifierProduit: (reference: string, informations: Produit) => void;
 };
 
 export const useProduitStore = create<ProduitStore>((set) => ({
@@ -31,6 +36,13 @@ export const useProduitStore = create<ProduitStore>((set) => ({
   selectionnerProduit: (produit) =>
     set({
       produitSelectionne: produit,
+    }),
+
+    modeDetails: "consultation",
+
+  setModeDetails: (mode) =>
+    set({
+      modeDetails: mode,
     }),
 
   modifierQuantite: (reference, nouvelleQuantite) =>
@@ -50,4 +62,18 @@ export const useProduitStore = create<ProduitStore>((set) => ({
       produitSelectionne,
     };
   }),
+
+  modifierProduit: (reference, informations) =>
+    set((state) => ({
+      produits: state.produits.map((produit) =>
+        produit.reference === reference
+          ? informations
+          : produit
+      ),
+
+      produitSelectionne:
+        state.produitSelectionne?.reference === reference
+          ? informations
+          : state.produitSelectionne,
+    })),
 }));
