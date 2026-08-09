@@ -12,6 +12,7 @@ import { Image } from 'react-native';
 import home from '../assets/home.png';
 import stock from '../assets/stock.png';
 import Home from './screens/Home';
+import DetailsProduit from './screens/DetailsProduit';
 import GestionProduits from './screens/GestionProduits';
 import FormulaireAjoutProduit from './screens/FormulaireAjoutProduit';
 
@@ -67,8 +68,12 @@ const RootStack = createNativeStackNavigator({
         title: 'Création de produit',
       }
     }),
-
-    
+    DetailsProduit: createNativeStackScreen({
+      screen: DetailsProduit,
+      options: {
+        title: 'Détails du produit',
+      }
+    }),
   },
 });
 

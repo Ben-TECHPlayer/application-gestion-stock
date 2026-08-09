@@ -18,9 +18,9 @@ export default function GestionProduits() {
       <Pressable style={styles.button}>
         <Text style={styles.textButton}>Modifier un produit</Text>
       </Pressable>
-      <Pressable style={styles.button}>
+      {/* <Pressable style={styles.button}>
         <Text style={styles.textButton}>Supprimer un produit</Text>
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 }

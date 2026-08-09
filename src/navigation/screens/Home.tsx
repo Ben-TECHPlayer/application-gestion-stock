@@ -1,5 +1,5 @@
-import { SafeAreaView, TextInput, StyleSheet, Text, View, ScrollView } from "react-native";
-import { SearchBar } from "react-native-screens";
+import { SafeAreaView, Pressable, TextInput, StyleSheet, Text, View, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { useProduitStore } from "../../store/ProduitStore";
 
@@ -10,18 +10,13 @@ export default function Home() {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  // const produit = {
-  //   nom: "",
-  //   categorie: "",
-  //   seuil: 0,
-  //   quantite: 0,
-  // };
-
-  // const [produits, setProduits] = useState<Produit[]>([]);
-
   const produits = useProduitStore((state) => state.produits);
 
-  console.log("Produits dans Home :", produits);
+  const navigation = useNavigation();
+  
+  const selectionnerProduit = useProduitStore(
+    (state) => state.selectionnerProduit
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,18 +34,35 @@ export default function Home() {
         <FlatList></FlatList>
       */}
       <ScrollView>
-      {produits.map((produit) => (
-      <View style={styles.containerProduit} key={produit.reference}>
-        <View style={styles.infoProduit}>
-          <Text>{produit.nom}</Text>
-          <Text>Catégorie : {produit.categorie}</Text>
-        </View>
-        <View style={styles.stockProduit}>
-          <Text>Seuil : {produit.seuil}</Text>
-          <Text>Quantité : {produit.quantite}</Text>
-        </View>
-      </View>
-      ))}
+        {produits.map((produit) => (
+          <Pressable
+            key={produit.reference}
+            style={styles.containerProduit}
+            onPress={() => {
+              selectionnerProduit(produit);
+              navigation.navigate("DetailsProduit");
+            }}
+          >
+            <View style={styles.infoProduit}>
+              <Text>{produit.nom}</Text>
+              <Text>Catégorie : {produit.categorie}</Text>
+            </View>
+
+            <View style={styles.stockProduit}>
+              <Text>Quantité : {produit.quantite}</Text>
+
+              <Text>
+                {produit.quantite === 0
+                  ? "🔴 Rupture"
+                  : produit.quantite <= produit.seuil
+                  ? "🟡 Faible"
+                  : "🟢 Normal"}
+              </Text>
+
+              <Text>Seuil : {produit.seuil}</Text>
+            </View>
+          </Pressable>
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
@@ -81,14 +93,13 @@ const styles = StyleSheet.create({
   },
   stockProduit: {
     display: "flex",
-    flexDirection: "row",
-    gap: 32,
+    flexDirection: "column",
   },
   inputSearch: {
-    padding: 12,
     backgroundColor: "white",
     borderRadius: 8,
     marginTop: 16,
+    padding: 10,
     width: "100%",
   },
 });
