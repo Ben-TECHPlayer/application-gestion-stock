@@ -14,9 +14,7 @@ import stock from '../assets/stock.png';
 
 import Home from './screens/Home';
 import DetailsProduit from './screens/DetailsProduit';
-import GestionProduits from './screens/GestionProduits';
 import FormulaireAjoutProduit from './screens/FormulaireAjoutProduit';
-import ChoixModificationProduit from './screens/ChoixModificationProduit';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -36,10 +34,10 @@ const HomeTabs = createBottomTabNavigator({
         ),
       },
     }),
-    GestionProduits: createBottomTabScreen({
-      screen: GestionProduits,
+    FormulaireAjoutProduit: createBottomTabScreen({
+      screen: FormulaireAjoutProduit,
       options: {
-        title: 'Gestion de produits',
+        title: 'Création de produits',
         tabBarIcon: ({ color, size }) => (
           <Image
             source={stock}
@@ -64,22 +62,10 @@ const RootStack = createNativeStackNavigator({
         headerShown: false,
       },
     }),
-    FormulaireAjoutProduit: createNativeStackScreen({
-      screen: FormulaireAjoutProduit,
-      options: {
-        title: 'Création de produit',
-      }
-    }),
     DetailsProduit: createNativeStackScreen({
       screen: DetailsProduit,
       options: {
         title: 'Détails du produit',
-      }
-    }),
-    ChoixModificationProduit: createNativeStackScreen({
-      screen: ChoixModificationProduit,
-      options: {
-        title: 'Modification du produit',
       }
     }),
   },

@@ -15,7 +15,6 @@ export default function AffichageListeProduits() {
   return (
     <ScrollView>
       
-    <Text style={styles.text}>Liste des produits</Text>
     {produits.map((produit) => (
           <Pressable
             key={produit.reference}

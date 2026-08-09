@@ -36,7 +36,7 @@ const [quantite, setQuantite] = useState("");
   return (
   <View style={styles.containerDetailsProduit}>
     {modeDetails === "modification" ? (
-      <View>
+      <View style={styles.textBlocProduit}>
         <TextInput
           value={nom}
           onChangeText={setNom}
@@ -64,7 +64,7 @@ const [quantite, setQuantite] = useState("");
         />
       </View>
     ) : (
-      <View>
+      <View style={styles.textBlocProduit}>
         <Text>Référence : {produit.reference}</Text>
         <Text>Catégorie : {produit.categorie}</Text>
         <Text>Quantité en stock : {produit.quantite}</Text>
@@ -100,27 +100,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 24,
-    gap: 10,
     // padding: 12,
   },
-  viewButton: {
-    display: "flex",
-    flexDirection: "row",
-    gap: "32",
-    justifyContent: "center",
+  textBlocProduit: {
+    gap: 12,
   },
-  button: {
-    backgroundColor: "lime",
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 10,
-    width: "100%",
-  },
-  textButton: {
-    textAlign: "center",
-    color: "white",
-    fontSize: 24,
-  },
+  // viewButton: {
+  //   display: "flex",
+  //   flexDirection: "row",
+  //   gap: "32",
+  //   justifyContent: "center",
+  // },
+  // button: {
+  //   backgroundColor: "lime",
+  //   padding: 10,
+  //   borderRadius: 8,
+  //   marginTop: 10,
+  //   width: "100%",
+  // },
+  // textButton: {
+  //   textAlign: "center",
+  //   color: "white",
+  //   fontSize: 24,
+  // },
 //   infoProduit: {
 //     display: "flex",
 //     flexDirection: "column",

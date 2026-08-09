@@ -25,7 +25,9 @@ export default function FormulaireAjoutProduit() {
 
     ajouterProduit(produit);
 
-    navigation.navigate("HomeTabs");
+    navigation.navigate("HomeTabs", {
+      screen: "Home",
+    });
   };
 
   return (

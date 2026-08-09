@@ -10,8 +10,12 @@ export default function DetailsProduit() {
   );
 
   const modeDetails = useProduitStore(
-  (state) => state.modeDetails
-);
+    (state) => state.modeDetails
+  );
+
+  const setModeDetails = useProduitStore(
+    (state) => state.setModeDetails
+  );
 
   if (!produit) {
     return (
@@ -26,13 +30,27 @@ export default function DetailsProduit() {
     <Text style={styles.text}>{produit.nom}</Text>
 
     <View style={styles.containerProduit}>
+      {modeDetails === "consultation" && (
+        <>
+          <ModifierInfosProduit />
+          <ModifierQuantiteProduit />
+        </>
+      )}
+
       {modeDetails === "modification" && (
         <ModifierInfosProduit />
       )}
-
-      {modeDetails === "consultation" && (
-        <ModifierQuantiteProduit />
-      )}
+      <Pressable 
+        style={styles.button}
+        onPress={() => setModeDetails("modification")}
+      >
+        <Text style={styles.textButton}>Modifier ce produit</Text>
+      </Pressable>
+      {/* <Pressable 
+        style={styles.button}
+      >
+        <Text style={styles.textButton}>Supprimer ce produit</Text>
+      </Pressable> */}
     </View>
   </ScrollView>
 );
@@ -70,7 +88,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginTop: 10,
-    width: "100%",
+    // width: "100%",
   },
   textButton: {
     textAlign: "center",

@@ -51,12 +51,13 @@ const styles = StyleSheet.create({
   viewButton: {
     display: "flex",
     flexDirection: "row",
-    gap: "32",
     justifyContent: "center",
+    alignItems: "center",
+    gap: 16,
   },
   button: {
     backgroundColor: "lime",
-    padding: 10,
+    padding: 4,
     borderRadius: 8,
     marginTop: 10,
     width: "100%",
@@ -65,5 +66,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: 24,
+    fontWeight: 800,
   },
 });

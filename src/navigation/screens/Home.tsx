@@ -14,12 +14,14 @@ export default function Home() {
       <TextInput
         style={styles.inputSearch}
         placeholder="Rechercher"
-        clearButtonMode="always"
-        autoCapitalize="none"
-        autoCorrect={false}
+        // clearButtonMode="always"
+        // autoCapitalize="none"
+        // autoCorrect={false}
         value={searchQuery}
-        // onChangeText={(query) => handleSearch(query)}
+        onChangeText={setSearchQuery}
       />
+      
+      <Text style={styles.text}>Liste des produits</Text>
       
       <AffichageListeProduits />
     </SafeAreaView>
