@@ -11,10 +11,12 @@ import {
 import { Image } from 'react-native';
 import home from '../assets/home.png';
 import stock from '../assets/stock.png';
+import board from '../assets/board.png';
 
 import Home from './screens/Home';
 import DetailsProduit from './screens/DetailsProduit';
 import FormulaireAjoutProduit from './screens/FormulaireAjoutProduit';
+import TableauBord from './screens/TableauBord';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -41,6 +43,22 @@ const HomeTabs = createBottomTabNavigator({
         tabBarIcon: ({ color, size }) => (
           <Image
             source={stock}
+            tintColor={color}
+            style={{
+              width: size,
+              height: size,
+            }}
+          />
+        ),
+      },
+    }),
+    TableauBord: createBottomTabScreen({
+      screen: TableauBord,
+      options: {
+        title: 'Tableau de bord',
+        tabBarIcon: ({ color, size }) => (
+          <Image
+            source={board}
             tintColor={color}
             style={{
               width: size,

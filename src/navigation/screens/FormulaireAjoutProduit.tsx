@@ -47,7 +47,8 @@ export default function FormulaireAjoutProduit() {
         <TextInput
           style={styles.inputForm}
           value={reference}
-          onChangeText={setReference}
+          onChangeText={(text) => setReference(text.replace(/[^a-zA-Z0-9]/g, "").toUpperCase())}
+          autoCapitalize="characters"
           placeholder="La référence du produit"
         />
 
@@ -61,14 +62,14 @@ export default function FormulaireAjoutProduit() {
         <TextInput
           style={styles.inputForm}
           value={quantite}
-          onChangeText={setQuantite}
+          onChangeText={(text) => setQuantite(text.replace(/[^0-9]/g, ""))}
           placeholder="La quantité initiale du produit"
         />
 
         <TextInput
           style={styles.inputForm}
           value={seuil}
-          onChangeText={setSeuil}
+          onChangeText={(text) => setSeuil(text.replace(/[^0-9]/g, ""))}
           placeholder="Le seuil d'alerte du produit"
         />
         <Pressable style={styles.button} onPress={creerProduit} >

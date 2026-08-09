@@ -10,6 +10,7 @@ Asset.loadAsync([
   ...NavigationAssets,
   require('./assets/home.png'),
   require('./assets/stock.png'),
+  require('./assets/board.png'),
 ]);
 
 SplashScreen.preventAutoHideAsync();

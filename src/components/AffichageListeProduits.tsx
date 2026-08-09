@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 24,
     padding: 12,
+    borderColor: "black",
+    borderWidth: 1,
   },
   infoProduit: {
     display: "flex",
