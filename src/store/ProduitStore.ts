@@ -6,8 +6,10 @@ export type Produit = {
   nom: string;
   categorie: string;
   reference: string;
+  description: string;
   seuil: number;
   quantite: number;
+  dateMiseAJour: string;
 };
 
 type ProduitStore = {
@@ -53,7 +55,7 @@ export const useProduitStore = create<ProduitStore>()(
         set((state) => {
           const produits = state.produits.map((produit) =>
             produit.reference === reference
-              ? { ...produit, quantite: nouvelleQuantite }
+              ? { ...produit, quantite: nouvelleQuantite, dateMiseAJour: new Date().toISOString(), }
               : produit
           );
 
@@ -69,18 +71,23 @@ export const useProduitStore = create<ProduitStore>()(
         }),
 
       modifierProduit: (reference, informations) =>
-        set((state) => ({
-          produits: state.produits.map((produit) =>
-            produit.reference === reference
-              ? informations
-              : produit
-          ),
+        set((state) => {
+          const produitModifie = {
+            ...informations,
+            dateMiseAJour: new Date().toISOString(),
+          };
 
-          produitSelectionne:
-            state.produitSelectionne?.reference === reference
-              ? informations
-              : state.produitSelectionne,
-        })),
+          return {
+            produits: state.produits.map((produit) =>
+              produit.reference === reference ? produitModifie : produit
+            ),
+
+            produitSelectionne:
+              state.produitSelectionne?.reference === reference
+                ? produitModifie
+                : state.produitSelectionne,
+          };
+        }),
     }),
     {
       name: "produits-stock",

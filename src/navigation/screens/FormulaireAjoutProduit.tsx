@@ -11,6 +11,7 @@ export default function FormulaireAjoutProduit() {
   const [reference, setReference] = useState("");
   const [seuil, setSeuil] = useState("");
   const [quantite, setQuantite] = useState("");
+  const [description, setDescription] = useState("");
 
   const ajouterProduit = useProduitStore((state) => state.ajouterProduit);
 
@@ -19,8 +20,10 @@ export default function FormulaireAjoutProduit() {
       nom,
       categorie,
       reference,
+      description,
       seuil: Number(seuil),
       quantite: Number(quantite),
+      dateMiseAJour: new Date().toISOString(),
     };
 
     ajouterProduit(produit);
@@ -57,6 +60,13 @@ export default function FormulaireAjoutProduit() {
           value={categorie}
           onChangeText={setCategorie}
           placeholder="La catégorie du produit"
+        />
+
+        <TextInput
+          style={styles.inputForm}
+          value={description}
+          onChangeText={setDescription}
+          placeholder="La description du produit"
         />
 
         <TextInput

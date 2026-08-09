@@ -44,6 +44,7 @@ export default function ModifierQuantiteProduit() {
                 <Text style={styles.textButton}>-</Text>
             </Pressable>
         </View>
+        
   );
 }
 

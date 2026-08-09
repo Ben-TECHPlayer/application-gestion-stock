@@ -2,7 +2,13 @@ import { Pressable, StyleSheet, Text, ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useProduitStore } from "../store/ProduitStore";
 
-export default function AffichageListeProduits() {
+type Props = {
+  searchQuery: string;
+  categorieSelectionnee: string;
+};
+
+export default function AffichageListeProduits({ searchQuery, categorieSelectionnee, }: Props) {
+
 
   const produits = useProduitStore((state) => state.produits);
 
@@ -12,39 +18,51 @@ export default function AffichageListeProduits() {
     (state) => state.selectionnerProduit
   );
 
+  const produitsFiltres = produits.filter((produit) => {
+    const correspondRecherche =
+      produit.nom.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      produit.reference.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const correspondCategorie =
+      categorieSelectionnee === "" ||
+      produit.categorie === categorieSelectionnee;
+
+    return correspondRecherche && correspondCategorie;
+  });
+
   return (
     <ScrollView>
       
-    {produits.map((produit) => (
-          <Pressable
-            key={produit.reference}
-            style={styles.containerProduit}
-            onPress={() => {
-              selectionnerProduit(produit);
-              navigation.navigate("DetailsProduit");
-            }}
-          >
-            <View style={styles.infoProduit}>
-              <Text>{produit.nom}</Text>
-              <Text>Catégorie : {produit.categorie}</Text>
-            </View>
+    {produitsFiltres.map((produit) => (
+      <Pressable
+        key={produit.reference}
+        style={styles.containerProduit}
+        onPress={() => {
+          selectionnerProduit(produit);
+          navigation.navigate("DetailsProduit");
+        }}
+      >
+        <View style={styles.infoProduit}>
+          <Text>{produit.nom}</Text>
+          <Text>Catégorie : {produit.categorie}</Text>
+        </View>
 
-            <View style={styles.stockProduit}>
-              <Text>Quantité : {produit.quantite}</Text>
+        <View style={styles.stockProduit}>
+          <Text>Quantité : {produit.quantite}</Text>
 
-              <Text>
-                {produit.quantite === 0
-                  ? "🔴 Rupture"
-                  : produit.quantite <= produit.seuil
-                  ? "🟡 Faible"
-                  : "🟢 Normal"}
-              </Text>
+          <Text>
+            {produit.quantite === 0
+              ? "🔴 Rupture"
+              : produit.quantite <= produit.seuil
+              ? "🟡 Faible"
+              : "🟢 Normal"}
+          </Text>
 
-              <Text>Seuil : {produit.seuil}</Text>
-            </View>
-          </Pressable>
-        ))}
-        </ScrollView>
+          <Text>Seuil : {produit.seuil}</Text>
+        </View>
+      </Pressable>
+    ))}
+    </ScrollView>
   );
 }
 
