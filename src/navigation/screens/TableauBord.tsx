@@ -1,13 +1,39 @@
 import { StyleSheet, Text, View } from "react-native";
+import { useProduitStore } from "../../store/ProduitStore";
 
 export default function TableauBord() {
 
-    // 1. Données pour le tableau (3 lignes) et le graphique
-    const data = [
-        { id: '1', label: 'Nombre total de produits', valeur: 40 },
-        { id: '2', label: 'Nombre de produits en rupture', valeur: 85 },
-        { id: '3', label: 'Nombre de produits en stock faible', valeur: 60 },
-    ];
+  const produits = useProduitStore((state) => state.produits);
+
+  const nombreTotalProduits = produits.length;
+
+  const nombreProduitsEnRupture = produits.filter(
+    (produit) => produit.quantite === 0
+  ).length;
+
+  const nombreProduitsStockFaible = produits.filter(
+    (produit) =>
+      produit.quantite > 0 &&
+      produit.quantite <= produit.seuil
+  ).length;
+
+  const data = [
+    {
+      id: "1",
+      label: "Nombre total de produits",
+      valeur: nombreTotalProduits,
+    },
+    {
+      id: "2",
+      label: "Nombre de produits en rupture",
+      valeur: nombreProduitsEnRupture,
+    },
+    {
+      id: "3",
+      label: "Nombre de produits en stock faible",
+      valeur: nombreProduitsStockFaible,
+    },
+  ];
 
   return (
     <View style={styles.container}>
